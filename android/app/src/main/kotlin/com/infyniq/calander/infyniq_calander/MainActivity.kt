@@ -1,4 +1,4 @@
-package com.infyniq.calander.infyniq_calander
+package com.infyniq.trackollo
 
 import io.flutter.embedding.android.FlutterActivity
 

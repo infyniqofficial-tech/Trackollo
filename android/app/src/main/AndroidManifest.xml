@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="infyniq_calander"
+        android:label="Trackollo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

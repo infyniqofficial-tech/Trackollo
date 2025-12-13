@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import 'package:infyniq_calander/Screens/Authentication/Login/login_binding.dart';
+import 'package:infyniq_calander/Screens/Authentication/Login/login_screen.dart';
+import '../Screens/Dashboard/dashboard_binding.dart';
+import '../Screens/Dashboard/dashboard_screen.dart';
 import '../Screens/Onboarding/onboarding_binding.dart';
 import '../Screens/Onboarding/onboarding_screen.dart';
 import 'app_routes.dart';
@@ -10,6 +14,15 @@ class AppPages {
       page: () => OnboardingScreen(),
       binding: OnboardingBinding(),
     ),
-    // Add login page later
+    GetPage(
+      name: AppRoutes.LOGIN,
+      page: () => LoginScreen(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.DASHBOARD,
+      page: () => const DashboardScreen(),
+      binding: DashboardBinding(),
+    ),
   ];
 }
