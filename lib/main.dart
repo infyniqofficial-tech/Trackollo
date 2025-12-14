@@ -17,38 +17,37 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final themeController = Get.put(ThemeController());
+  MyApp({super.key});
+
+  final themeController = Get.put(ThemeController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
-
     final box = GetStorage();
-
     bool isFirstTime = box.read('isFirstTime') ?? true;
-    // bool isFirstTime = true;
 
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
-
-
-          return GetMaterialApp(
-            title: "MyApp",
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData.light().copyWith(
-              textTheme: GoogleFonts.soraTextTheme(
-                ThemeData.light().textTheme,
-              ),
+        return Obx(() => GetMaterialApp(
+          title: "MyApp",
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.light().copyWith(
+            textTheme: GoogleFonts.soraTextTheme(
+              ThemeData.light().textTheme,
             ),
-            darkTheme: ThemeData.dark().copyWith(
-              textTheme: GoogleFonts.soraTextTheme(
-                ThemeData.dark().textTheme,
-              ),
+            scaffoldBackgroundColor: Colors.white,
+          ),
+          darkTheme: ThemeData.dark().copyWith(
+            textTheme: GoogleFonts.soraTextTheme(
+              ThemeData.dark().textTheme,
             ),
-            themeMode: themeController.themeMode,
-            initialBinding: InitialBinding(),
-            getPages: AppPages.pages,
-            initialRoute: isFirstTime ? AppRoutes.ONBOARDING : AppRoutes.LOGIN,
-          );
+            scaffoldBackgroundColor: const Color(0xFF0D0D0D),
+          ),
+          themeMode: themeController.themeMode,
+          initialBinding: InitialBinding(),
+          getPages: AppPages.pages,
+          initialRoute: isFirstTime ? AppRoutes.ONBOARDING : AppRoutes.LOGIN,
+        ));
       },
     );
   }

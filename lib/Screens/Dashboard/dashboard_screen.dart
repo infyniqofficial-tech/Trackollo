@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Data/Themes/app_colors.dart';
+import '../../Data/Themes/theme_controller.dart';
+import 'Media/media_view.dart';
 import 'Profile/profile_view.dart';
 import 'dashboard_controller.dart';
 import 'home_view.dart';
@@ -13,30 +15,41 @@ class DashboardScreen extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primaryBgClr,
-      // Stack to overlay the Bottom Nav on top of content (if we wanted glassmorphism)
-      // or standard Column. Standard body + bottomNavigationBar is better for layout safety.
-      body: Obx(() {
-        // Switch views here based on index
-        switch (controller.tabIndex.value) {
-          case 0:
-            return const HomeView();
-          case 1:
-            return const Center(child: Text("Calendar"));
-          case 2:
-            return const Center(child: Text("Media"));
-          case 3:
-            return const ProfileView();
-          default:
-            return const HomeView();
-        }
-      }),
-      bottomNavigationBar: _buildAnimatedBottomNav(),
-    );
+    final themeController = Get.find<ThemeController>();
+
+    return Obx(() {
+      // Force rebuild when theme changes
+      final isDark = themeController.isDarkMode.value;
+      print('DashboardScreen rebuilding, isDarkMode: $isDark');
+
+      return Scaffold(
+        backgroundColor: AppColors.primaryBgClr,
+        body: Obx(() {
+          // Switch views here based on index
+          switch (controller.tabIndex.value) {
+            case 0:
+              return const HomeView();
+            case 1:
+              return Center(
+                child: Text(
+                  "Calendar",
+                  style: TextStyle(color: AppColors.primaryTextClr),
+                ),
+              );
+            case 2:
+              return const MediaView();
+            case 3:
+              return const ProfileView();
+            default:
+              return const HomeView();
+          }
+        }),
+        bottomNavigationBar: _buildAnimatedBottomNav(isDark),
+      );
+    });
   }
 
-  Widget _buildAnimatedBottomNav() {
+  Widget _buildAnimatedBottomNav(bool isDark) {
     return Container(
       padding: EdgeInsets.only(top: 1.5.h, bottom: 3.h, left: 4.w, right: 4.w),
       decoration: BoxDecoration(
@@ -46,7 +59,7 @@ class DashboardScreen extends GetView<DashboardController> {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha:0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),
@@ -76,7 +89,7 @@ class DashboardScreen extends GetView<DashboardController> {
         curve: Curves.easeOut,
         padding: EdgeInsets.symmetric(horizontal: isSelected ? 4.w : 2.w, vertical: 1.h),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryBlue.withValues(alpha:0.1) : Colors.transparent,
+          color: isSelected ? AppColors.primaryBlue.withValues(alpha: 0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(

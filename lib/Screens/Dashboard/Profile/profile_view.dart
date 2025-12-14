@@ -13,8 +13,14 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    // Wrap entire scaffold in Obx to ensure background colors update
+    final themeController = Get.find<ThemeController>();
+
+    // Use Obx to rebuild entire screen when isDarkMode changes
     return Obx(() {
+      // Force evaluation of isDarkMode to trigger rebuilds
+      final isDark = themeController.isDarkMode.value;
+      print('ProfileView rebuilding, isDarkMode: $isDark');
+
       return Scaffold(
         backgroundColor: AppColors.primaryBgClr,
         body: SafeArea(
@@ -42,7 +48,7 @@ class ProfileView extends GetView<ProfileController> {
                   decoration: BoxDecoration(
                     color: AppColors.cardClr,
                     borderRadius: BorderRadius.circular(24),
-                    boxShadow: Get.isDarkMode ? [] : [
+                    boxShadow: isDark ? [] : [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.05),
                         blurRadius: 15,
@@ -129,29 +135,53 @@ class ProfileView extends GetView<ProfileController> {
                   child: Column(
                     children: [
                       // Dark Mode Switch
-                      _buildListTile(
-                        icon: CupertinoIcons.moon,
-                        title: "Dark Mode",
-                        // THIS IS THE FIX:
-                        // We listen directly to the ThemeController's RxBool
-                        trailing: Obx(() => CupertinoSwitch(
-                          value: Get.find<ThemeController>().isDarkMode.value,
+                      ListTile(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 0.5.h),
+                        leading: Container(
+                          padding: EdgeInsets.all(2.w),
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryBlue.withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(CupertinoIcons.moon, color: AppColors.primaryBlue, size: 18.sp),
+                        ),
+                        title: Text(
+                          "Dark Mode",
+                          style: GoogleFonts.sora(
+                            color: AppColors.primaryTextClr,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        trailing: CupertinoSwitch(
+                          value: isDark,
                           activeColor: AppColors.primaryBlue,
-                          onChanged: (val) => controller.toggleTheme(val),
-                        )),
+                          onChanged: (value) {
+                            print('Switch tapped: $value');
+                            controller.toggleTheme(value);
+                          },
+                        ),
                       ),
                       _buildDivider(),
                       _buildListTile(
                         icon: CupertinoIcons.bell,
                         title: "Notifications",
-                        trailing: Icon(CupertinoIcons.chevron_right, color: AppColors.secondaryTextClr, size: 18.sp),
+                        trailing: Icon(
+                          CupertinoIcons.chevron_right,
+                          color: AppColors.secondaryTextClr,
+                          size: 18.sp,
+                        ),
                         onTap: () {},
                       ),
                       _buildDivider(),
                       _buildListTile(
                         icon: CupertinoIcons.question_circle,
                         title: "Help & Support",
-                        trailing: Icon(CupertinoIcons.chevron_right, color: AppColors.secondaryTextClr, size: 18.sp),
+                        trailing: Icon(
+                          CupertinoIcons.chevron_right,
+                          color: AppColors.secondaryTextClr,
+                          size: 18.sp,
+                        ),
                         onTap: () {},
                       ),
                     ],

@@ -18,7 +18,7 @@ class LoginController extends GetxController {
     // Add your login logic here
     print("Email: ${emailController.text}");
     print("Password: ${passwordController.text}");
-    Get.toNamed(AppRoutes.DASHBOARD);
+    Get.offAllNamed(AppRoutes.DASHBOARD);
   }
 
   @override

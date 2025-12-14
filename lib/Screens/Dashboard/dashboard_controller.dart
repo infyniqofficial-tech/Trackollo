@@ -4,6 +4,13 @@ class DashboardController extends GetxController {
   // Bottom Nav Index
   var tabIndex = 0.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    // Always start at home tab when dashboard is initialized
+    tabIndex.value = 0;
+  }
+
   void changeTabIndex(int index) {
     tabIndex.value = index;
   }
