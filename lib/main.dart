@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
 
     final box = GetStorage();
 
-    // bool isFirstTime = box.read('isFirstTime') ?? true;
-    bool isFirstTime = true;
+    bool isFirstTime = box.read('isFirstTime') ?? true;
+    // bool isFirstTime = true;
 
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {

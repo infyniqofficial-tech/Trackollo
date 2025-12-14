@@ -6,19 +6,28 @@ class ThemeController extends GetxController {
   final _box = GetStorage();
   final _key = 'isDarkMode';
 
-  ThemeMode get themeMode {
+  // 1. Create a reactive boolean so the Switch updates INSTANTLY
+  final RxBool isDarkMode = false.obs;
 
-    bool isDark = _box.read(_key) ?? true;
-    return isDark ? ThemeMode.dark : ThemeMode.light;
+  @override
+  void onInit() {
+    super.onInit();
+    // 2. Load the saved state when the app starts
+    isDarkMode.value = _box.read(_key) ?? true;
+    Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
   }
 
+  // 3. Helper to get the actual ThemeMode
+  ThemeMode get themeMode => isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+
   void toggleTheme() {
-    if (Get.isDarkMode) {
-      Get.changeThemeMode(ThemeMode.light);
-      _box.write(_key, false);
-    } else {
-      Get.changeThemeMode(ThemeMode.dark);
-      _box.write(_key, true);
-    }
+    // 4. Flip the boolean immediately (UI updates now)
+    isDarkMode.value = !isDarkMode.value;
+
+    // 5. Change the actual theme (Background updates a split second later)
+    Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
+
+    // 6. Save to storage
+    _box.write(_key, isDarkMode.value);
   }
 }

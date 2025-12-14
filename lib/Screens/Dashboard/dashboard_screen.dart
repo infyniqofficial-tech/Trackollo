@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Data/Themes/app_colors.dart';
+import 'Profile/profile_view.dart';
 import 'dashboard_controller.dart';
 import 'home_view.dart';
 
@@ -26,7 +27,7 @@ class DashboardScreen extends GetView<DashboardController> {
           case 2:
             return const Center(child: Text("Media"));
           case 3:
-            return const Center(child: Text("Profile"));
+            return const ProfileView();
           default:
             return const HomeView();
         }

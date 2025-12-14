@@ -48,4 +48,15 @@ class AppColors {
   static const Color errorRed = Color(0xFFFF3D00);
   static const Color errorBg = Color(0xFF351A1A); // Dark mode red bg hint
 
+  static Color get badgeBg {
+    return Get.isDarkMode ? const Color(0xFF1A2744) : const Color(0xFFE3F2FD);
+  }
+
+  static Color get logoutBtnBg {
+    return Get.isDarkMode ? const Color(0xFF351A1A) : const Color(0xFFFFEBEE);
+  }
+
+  static Color get logoutTextClr {
+    return const Color(0xFFFF3D00);
+  }
 }
