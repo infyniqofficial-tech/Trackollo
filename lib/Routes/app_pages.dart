@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:infyniq_calander/Screens/Authentication/Login/login_binding.dart';
 import 'package:infyniq_calander/Screens/Authentication/Login/login_screen.dart';
-import '../Screens/Authentication/Login/Schedule Post/schedule_post_binding.dart';
-import '../Screens/Authentication/Login/Schedule Post/schedule_post_screen.dart';
+import 'package:infyniq_calander/Screens/Dashboard/Post%20Description/post_description_binding.dart';
+import 'package:infyniq_calander/Screens/Dashboard/Post%20Description/post_description_screen.dart';
 import '../Screens/Dashboard/dashboard_binding.dart';
 import '../Screens/Dashboard/dashboard_screen.dart';
 import '../Screens/Onboarding/onboarding_binding.dart';
@@ -27,9 +27,9 @@ class AppPages {
       binding: DashboardBinding(),
     ),
     GetPage(
-      name: AppRoutes.SCHEDULE_POST,
-      page: () => const SchedulePostScreen(),
-      binding: SchedulePostBinding(),
+      name: AppRoutes.POST_DESCRIPTION,
+      page: () => PostDescriptionScreen(),
+      binding: PostDescriptionBinding(),
     ),
   ];
 }

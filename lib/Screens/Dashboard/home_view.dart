@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Data/Themes/app_colors.dart';
 import '../../Data/Themes/theme_controller.dart';
+import '../../Routes/app_routes.dart';
 import 'dashboard_controller.dart';
 
 class HomeView extends GetView<DashboardController> {
@@ -68,14 +69,20 @@ class HomeView extends GetView<DashboardController> {
                 ),
                 SizedBox(height: 2.h),
 
-                // 5. Post List
+                // 5. Post List with Navigation
                 ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: controller.posts.length,
                   separatorBuilder: (_, __) => SizedBox(height: 2.h),
                   itemBuilder: (context, index) {
-                    return _buildPostCard(controller.posts[index], isDark);
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to Post Description Page
+                        Get.toNamed(AppRoutes.POST_DESCRIPTION);
+                      },
+                      child: _buildPostCard(controller.posts[index], isDark),
+                    );
                   },
                 ),
                 SizedBox(height: 10.h),

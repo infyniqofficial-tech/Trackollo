@@ -269,7 +269,7 @@ class CalendarView extends StatelessWidget {
                       )
                     else
                       ...events.map((event) => GestureDetector(
-                        onTap: () => Get.toNamed(AppRoutes.SCHEDULE_POST, arguments: event),
+                        onTap: () => Get.toNamed(AppRoutes.POST_DESCRIPTION, arguments: event),
                         child: _buildWeekEventCard(event, isDark),
                       )).toList(),
                     SizedBox(height: 0.5.h),
@@ -481,7 +481,7 @@ class CalendarView extends StatelessWidget {
                 // --- WRAPPED IN GESTURE DETECTOR ---
                 return GestureDetector(
                   onTap: () {
-                    Get.toNamed(AppRoutes.SCHEDULE_POST, arguments: event);
+                    Get.toNamed(AppRoutes.POST_DESCRIPTION, arguments: event);
                   },
                   child: Container(
                     padding: EdgeInsets.all(3.w),
