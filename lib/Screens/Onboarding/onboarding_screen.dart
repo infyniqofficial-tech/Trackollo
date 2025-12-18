@@ -42,7 +42,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                 controller: controller.pageController,
                 itemCount: controller.pages.length,
                 onPageChanged: controller.updatePage,
-                physics: const BouncingScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final page = controller.pages[index];
                   return _buildPageContent(

@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Data/Themes/app_colors.dart';
 import '../../Data/Themes/theme_controller.dart';
+import 'Calander/calander_view.dart';
 import 'Media/media_view.dart';
 import 'Profile/profile_view.dart';
 import 'dashboard_controller.dart';
@@ -30,12 +31,7 @@ class DashboardScreen extends GetView<DashboardController> {
             case 0:
               return const HomeView();
             case 1:
-              return Center(
-                child: Text(
-                  "Calendar",
-                  style: TextStyle(color: AppColors.primaryTextClr),
-                ),
-              );
+              return const CalendarView();
             case 2:
               return const MediaView();
             case 3:
